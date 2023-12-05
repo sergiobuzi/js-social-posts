@@ -114,17 +114,19 @@ posts.forEach((element) => {
 const likedPosts =[];
 
 //creo la variabile per il bottone
-const likeButton = document.querySelectorAll(".js-like-button");
+const postini = document.querySelectorAll(".post");
 
 
-likeButton.forEach(button => {
+postini.forEach((post, index) => {
+
+    const button = post.querySelector(".like-button");
 
     //attivo la funzione del click al bottone
     button.addEventListener("click",
 
         function (){ 
-            //funzione per non far tornare in cima alla pagina quando premo mi piace
-
+            
+            //variabile che mi prende il 
             const postId = button.getAttribute("data-postid");
 
 
@@ -136,13 +138,23 @@ likeButton.forEach(button => {
                 console.log(likedPosts);
 
 
-                //a questo punto aggiungo la classe per i post con il like
-                const noliketext = document.querySelector(".like-button__label");
-                const nolikeicon = document.querySelector(".like-button__icon");
+                //Se invece e gia presente nell'array
+                if(likedPosts.includes(postId)){
+                    //a questo punto aggiungo la classe per i post con il like
+                    const noliketext = post.querySelector(".like-button__label");
+                    const nolikeicon = post.querySelector(".like-button__icon");
+                    noliketext.classList.add("like-button--liked");
+                    nolikeicon.classList.add("like-button--liked");
 
-                noliketext.classList.add("like-button--liked");
-                nolikeicon.classList.add("like-button--liked");
 
+                    //creo una costante per il contatore dei likes
+                    let likesCounter = post.querySelector(".js-likes-counter");
+                    console.log(likesCounter.value);
+
+                    //funzione per incrementare il contatore dei likes
+                    likesCounter.textContent = parseInt(likesCounter.textContent) + 1;
+                    
+                };
             }
         }
     );
