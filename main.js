@@ -1,3 +1,6 @@
+// Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
+// Milestone 1 - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed, prendendo le informazioni che ci servono dall’array di oggetti che già trovate.
+
 const posts = [
     {
         "id": 1,
@@ -59,8 +62,8 @@ const posts = [
 
 const container = document.getElementById("container");
 
-posts.forEach((element, index,) => {
-    console.log(element, index,);
+posts.forEach((element) => {
+    console.log(element);
     
     let post = 
     
@@ -84,13 +87,13 @@ posts.forEach((element, index,) => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
+                    <a class="like-button  js-like-button" href="#as" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                    Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                 </div>
             </div> 
         </div>            
@@ -101,4 +104,49 @@ posts.forEach((element, index,) => {
     container.innerHTML += post;
 
 });
+
+
+
+// Milestone 2 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+
+//creo un array dove salvo i post che mi piacciono
+const likedPosts =[];
+
+//creo la variabile per il bottone
+const likeButton = document.querySelectorAll(".js-like-button");
+
+
+likeButton.forEach(button => {
+
+    //attivo la funzione del click al bottone
+    button.addEventListener("click",
+
+        function (){ 
+            //funzione per non far tornare in cima alla pagina quando premo mi piace
+
+            const postId = button.getAttribute("data-postid");
+
+
+            //SE il post a cui metto like non e nell'array
+            if(!likedPosts.includes(postId)){
+
+                //allora lo pusho dentro e stampo
+                likedPosts.push(postId);
+                console.log(likedPosts);
+
+
+                //a questo punto aggiungo la classe per i post con il like
+                const noliketext = document.querySelector(".like-button__label");
+                const nolikeicon = document.querySelector(".like-button__icon");
+
+                noliketext.classList.add("like-button--liked");
+                nolikeicon.classList.add("like-button--liked");
+
+            }
+        }
+    );
+});
+
+
 
