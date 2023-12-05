@@ -87,7 +87,7 @@ posts.forEach((element) => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#as" data-postid="${element.id}">
+                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -117,14 +117,17 @@ const likedPosts =[];
 const postini = document.querySelectorAll(".post");
 
 
-postini.forEach((post, index) => {
+postini.forEach(post => {
 
     const button = post.querySelector(".like-button");
 
     //attivo la funzione del click al bottone
     button.addEventListener("click",
 
-        function (){ 
+        function (event){ 
+
+            //funzione per non far tornare la pagina all'inizio quando premo like
+            event.preventDefault();
             
             //variabile che mi prende il 
             const postId = button.getAttribute("data-postid");
@@ -149,7 +152,6 @@ postini.forEach((post, index) => {
 
                     //creo una costante per il contatore dei likes
                     let likesCounter = post.querySelector(".js-likes-counter");
-                    console.log(likesCounter.value);
 
                     //funzione per incrementare il contatore dei likes
                     likesCounter.textContent = parseInt(likesCounter.textContent) + 1;
